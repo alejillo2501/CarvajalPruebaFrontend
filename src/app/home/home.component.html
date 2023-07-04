@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <div class="alert alert-info notification" *ngIf="successMessage != ''">{{ successMessage }}</div>
+    <div class="row">
+        <div class="col-md-4 col-sm-12 border col1">
+            <div class="alert alert-success">Crea una nueva publicación</div>              
+            <form [formGroup]="publicacionForm" (ngSubmit)="submit(publicacionForm)" class="editForm w-100 mt-3" novalidate>
+                <div class="form-group">
+                    <label>Titulo</label>
+                    <input type="text" class="form-control" formControlName="title" title="Titulo" />
+                    <div class="alert alert-danger" [hidden]="f['title'].untouched || f['title'].valid">Titulo es requerido</div>
+                  </div>
+                <div class="form-group mb-1"> 
+                  <label>Detalle</label>     
+                  <textarea type="text" rows="5" class="form-control" formControlName="about" title="Detalle" placeholder="Escribe aquí tu publicación..."></textarea>
+                  <div class="alert alert-danger" [hidden]="f['about'].untouched || f['about'].valid">Detalle es requerido</div>
+                </div>    
+                <button type="submit" class="btn btn-success" *ngIf="!editView" [disabled]="!publicacionForm.valid">Publicar</button>
+                <button type="submit" class="btn btn-success" *ngIf="editView" [disabled]="!publicacionForm.valid">Editar</button>
+                <button type="button" class="btn btn-danger" *ngIf="editView" (click)="cancelEdit()">Cancelar</button>
+                <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>  
+            </form>
+            <hr>
+            <button type="button" class="btn btn-danger" (click)="salir()">Cerrar sesión</button>
+        </div>
+        <div class="col-md-8 col-sm-12 col2">
+            <div class="row">
+                <div class="col-md-4 col-sm-12" *ngFor="let item of publicaciones">
+                    <div class="card h-auto">                
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{item.title}}</b></h5>
+                            <p class="card-text">{{item.about}}</p> 
+                            <button href="#" class="btn btn-success" (click)="mostrarComentarios(item.id)">
+                                <span *ngIf="viewComentario != item.id">Ver comentarios</span>
+                                <span *ngIf="viewComentario == item.id">Ocultar</span>
+                            </button>
+                            <button class="btn btn-warning" *ngIf="authorId == item.authorId" (click)="editPublicacion(item)"><i class="bi bi-pencil-fill"></i></button>
+                            <button class="btn btn-danger" *ngIf="authorId == item.authorId" (click)="eliminarPublicacion(item)"><i class="bi bi-trash-fill"></i></button>
+                            <div *ngIf="viewComentario == item.id">
+                                <app-comentarios [idPublicacion] = "item.id" ></app-comentarios>
+                            </div>                                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

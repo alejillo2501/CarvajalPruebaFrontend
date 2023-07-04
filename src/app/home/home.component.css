@@ -1,0 +1,24 @@
+.col1{
+    height: 100vh;
+    padding: 2rem;
+}
+.col2{
+    padding: 2rem;
+}
+
+h5.card-title {
+    border-bottom: solid 1px;
+    color: green;
+    height: 3rem;
+}
+.card-text {
+    text-align: justify;
+    height: 200px;
+    overflow-y: auto;
+}
+.notification {
+    position: absolute;
+    z-index: 99;
+    right: 1rem;
+    top: 1rem;
+}

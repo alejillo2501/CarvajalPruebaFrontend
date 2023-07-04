@@ -1,0 +1,29 @@
+<div class="container border pt-3 pb-3">
+    <small><b>Comentarios:</b></small>
+    <div class="list-group" *ngFor="let item of comentarios">
+        <div  class="list-group-item list-group-item-action" aria-current="true">
+          <h5>{{item.user}}</h5>
+          <small *ngIf="idComentario != item.id">{{item.comentario}}</small>
+          <form *ngIf="idComentario == item.id" [formGroup]="comentarioFormEdit" (ngSubmit)="submit(comentarioFormEdit)" class="editForm w-100 mt-3" novalidate>
+            <div class="form-group">      
+                <textarea type="text" rows="3" class="form-control" formControlName="comentario" title="Comentario" placeholder="Escribe aquí tu comentario..."></textarea>
+                <div class="alert alert-danger" [hidden]="g['comentario'].untouched || g['comentario'].valid">Comentario es requerido</div>
+                </div>    
+                <button type="submit" class="btn btn-link" [disabled]="!comentarioFormEdit.valid"><i class="bi bi-check-circle-fill"></i> Guardar</button>
+                <button type="button" class="btn btn-link" (click)="cancelEditComentario()"><i class="bi bi-x-circle-fill"></i> Cancelar</button>
+                <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>  
+          </form>
+          <button type="button" class="btn btn-link" *ngIf="item.userId == idUser && idComentario != item.id" (click)="editComentario(item)"><i class="bi bi-pencil-fill"></i> Editar</button>
+          <button type="button" class="btn btn-link" *ngIf="item.userId == idUser && idComentario != item.id" (click)="eliminarComentario(item)"><i class="bi bi-trash-fill"></i> Eliminar</button>
+        </div>
+    </div>
+    <hr>
+    <form [formGroup]="comentarioForm" (ngSubmit)="submit(comentarioForm)" class="editForm w-100 mt-3" novalidate>
+        <div class="form-group">      
+          <textarea type="text" rows="3" class="form-control" formControlName="comentario" title="Comentario" placeholder="Escribe aquí tu comentario..."></textarea>
+          <div class="alert alert-danger" [hidden]="f['comentario'].untouched || f['comentario'].valid">Comentario es requerido</div>
+        </div>    
+        <button type="submit" class="btn btn-success" [disabled]="!comentarioForm.valid">Comentar</button>
+        <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>  
+    </form>
+</div>
