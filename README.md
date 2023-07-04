@@ -1,11 +1,12 @@
-# Autor
+# FRONTEND prueba para Carvajal
+## Autor
 
 Oscar Alejandro Londoño Torres
 
 ## deploy
 
-npm install
-npm run server
+- npm install
+- npm run serve
 
 ## Important Notes
 
